@@ -1,0 +1,2 @@
+# EestiMapper
+Datamining project part.

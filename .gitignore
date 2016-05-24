@@ -13,3 +13,7 @@ server.pid
 *.eml
 /dist/
 .cache
+*.class
+*.cache
+*.log
+.settings

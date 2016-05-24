@@ -12,7 +12,7 @@ import javax.imageio.ImageIO;
 
 import play.mvc.*;
 import services.draw.MapDrawer;
-import services.draw.SimpleDrawCall;
+import services.draw.SimpleFeatureDrawCall;
 import views.html.*;
 
 /**
@@ -21,33 +21,24 @@ import views.html.*;
  */
 public class HomeController extends Controller {
 
-	/**
-	 * An action that renders an HTML page with a welcome message. The
-	 * configuration in the <code>routes</code> file means that this method will
-	 * be called when the application receives a <code>GET</code> request with a
-	 * path of <code>/</code>.
-	 */
 	public Result index() {
 		return ok(index.render("Y2 new application is ready."));
 	}
 
 	public Result getImage(Long id) {
 
-		MapDrawer d = new MapDrawer("conf/resources/maakond/omavalitsus_20160501.shp");
+		MapDrawer d = new MapDrawer("conf/resources/omavalitsus/omavalitsus_20160501.shp", "ONIMI");
 
-		List<SimpleDrawCall> calls = new ArrayList<>();
-		calls.add(new SimpleDrawCall("Tartu vald", Color.RED));
-		/*calls.add(new SimpleDrawCall("Järva maakond", Color.BLUE));
-		calls.add(new SimpleDrawCall("Harju maakond", Color.GREEN));
-		calls.add(new SimpleDrawCall("Põlva maakond", Color.YELLOW));
-		calls.add(new SimpleDrawCall("Saare maakond", Color.ORANGE));*/
-		BufferedImage img = d.generateMap(1024, calls);
+		List<SimpleFeatureDrawCall> calls = new ArrayList<>();
+		for(String s: d.getFeatures())
+			calls.add(new SimpleFeatureDrawCall(s, Color.RED));
+
+		BufferedImage img = d.generateMap(1024, calls, false);
 
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();
 		try {
 			ImageIO.write(img, "jpg", baos);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		byte[] image = baos.toByteArray();

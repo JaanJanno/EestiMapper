@@ -2,15 +2,12 @@ package services;
 
 import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.geotools.data.DataStore;
 import org.geotools.data.DataStoreFinder;
 import org.geotools.data.FeatureSource;
-import org.geotools.data.simple.SimpleFeatureIterator;
 import org.geotools.feature.FeatureCollection;
 import org.geotools.feature.FeatureIterator;
 import org.opengis.feature.Feature;
@@ -44,7 +41,7 @@ public class ShapeReader {
 				while (iterator.hasNext()) {
 					Feature feature = iterator.next();
 
-					String name = feature.getProperty(identifier).getValue().toString();
+					String name = feature.getProperty(identifier).getValue().toString().toLowerCase();
 					BoundingBox box = feature.getDefaultGeometryProperty().getBounds();
 					MultiPolygon poly = (MultiPolygon) feature.getDefaultGeometryProperty().getValue();
 
@@ -62,10 +59,10 @@ public class ShapeReader {
 	}
 
 	public static Map<String, SimpleFeature> readFeatureMap(String url, String identifier) {
-		
+
 		Map<String, SimpleFeature> locations = new HashMap<>();
 		File file = new File(url);
-		
+
 		try {
 			Map<String, URL> connect = new HashMap<String, URL>();
 			connect.put("url", file.toURI().toURL());
@@ -81,7 +78,7 @@ public class ShapeReader {
 			try {
 				while (iterator.hasNext()) {
 					SimpleFeature feature = (SimpleFeature) iterator.next();
-					String name = feature.getProperty(identifier).getValue().toString();
+					String name = feature.getProperty(identifier).getValue().toString().toLowerCase();
 
 					locations.put(name, feature);
 				}
@@ -94,12 +91,6 @@ public class ShapeReader {
 
 		return locations;
 
-	}
-
-	public static void main(String[] args) {
-		Map<String, SimpleFeature> map = readFeatureMap("C:\\Users\\Jaan\\Desktop\\maakond_20160501.shp","MNIMI");
-		SimpleFeature tartu = map.get("Tartu maakond");
-		System.out.println(tartu);
 	}
 
 }

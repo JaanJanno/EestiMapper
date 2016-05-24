@@ -3,7 +3,10 @@ package services.draw;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 
 import services.csv.CSVFileReader;
 
@@ -42,6 +45,59 @@ public class EntryDrawer {
 		}
 
 		return drawer.generateMap(width, calls, autofill);
+
+	}
+
+	public static List<BufferedImage> getAnimatedImage(List<Entry> allEntries, MapDrawer drawer, Color min, Color max,
+			int width, boolean autofill) {
+
+		List<Entry> entries = filter(allEntries, drawer);
+
+		double minVal = getMin(entries);
+		double maxVal = getMax(entries);
+
+		List<Integer> years = new ArrayList<>();
+		Map<Integer, List<SimpleFeatureDrawCall>> map = new HashMap<Integer, List<SimpleFeatureDrawCall>>();
+
+		for (Entry e : entries) {
+			Integer year = e.getYear();
+
+			if (map.containsKey(year)) {
+				map.get(year).add(e.toSimpleDrawCall(minVal, maxVal, min, max));
+			} else {
+				years.add(year);
+				map.put(year, new ArrayList<>());
+				map.get(year).add(e.toSimpleDrawCall(minVal, maxVal, min, max));
+			}
+		}
+
+		System.out.println("tere");
+		List<BufferedImage> imgSeq = new ArrayList<>();
+		List<Thread> threads = new ArrayList<>();
+		for(int year: years) {
+			System.out.println("Rendering year: " + Integer.toString(year));
+			Thread t = new Thread(new Runnable() {
+				
+				@Override
+				public void run() {
+					// TODO Auto-generated method stub
+					BufferedImage img = drawer.generateMap(width, map.get(year), autofill);
+					imgSeq.add(img);
+				}
+			});
+			threads.add(t);
+			t.start();
+			
+		}
+		for(Thread t: threads) {
+			try {
+				t.join();
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		return imgSeq;
 
 	}
 

@@ -9,10 +9,11 @@ import services.csv.CSVFileReader;
 
 public class EntryDrawer {
 
-	public static BufferedImage getImage(List<Entry> allEntries, MapDrawer drawer, Color min, Color max, int width, boolean autofill) {
+	public static BufferedImage getImage(List<Entry> allEntries, MapDrawer drawer, Color min, Color max, int width,
+			boolean autofill) {
 
 		List<Entry> entries = filter(allEntries, drawer);
-		
+
 		double minVal = getMin(entries);
 		double maxVal = getMax(entries);
 
@@ -25,29 +26,9 @@ public class EntryDrawer {
 
 	}
 
-	private static List<Entry> filter(List<Entry> allEntries, MapDrawer drawer) {
-		List<Entry> entries = new ArrayList<>();
-		for(Entry e: allEntries) {
-			if(drawer.getFeatures().contains(e.getName())) {
-				entries.add(e);
-			}
-		}
-		return entries;
-	}
-	
-	private static List<Entry> filter(List<Entry> allEntries, MapDrawer drawer, int year) {
-		List<Entry> entries = new ArrayList<>();
-		for(Entry e: allEntries) {
-			if(drawer.getFeatures().contains(e.getName()) && e.getYear() == year) {
-				entries.add(e);
-			}
-		}
-		return entries;
-	}
+	public static BufferedImage getImageByYear(List<Entry> allEntries, MapDrawer drawer, Color min, Color max,
+			int width, int year, boolean autofill) {
 
-	public static BufferedImage getImageByYear(List<Entry> allEntries, MapDrawer drawer, Color min, Color max, int width,
-			int year, boolean autofill) {
-		
 		List<Entry> entries = filter(allEntries, drawer, year);
 
 		double minVal = getMin(entries);
@@ -64,9 +45,28 @@ public class EntryDrawer {
 
 	}
 
+	private static List<Entry> filter(List<Entry> allEntries, MapDrawer drawer) {
+		List<Entry> entries = new ArrayList<>();
+		for (Entry e : allEntries) {
+			if (drawer.getFeatures().contains(e.getName())) {
+				entries.add(e);
+			}
+		}
+		return entries;
+	}
+
+	private static List<Entry> filter(List<Entry> allEntries, MapDrawer drawer, int year) {
+		List<Entry> entries = new ArrayList<>();
+		for (Entry e : allEntries) {
+			if (drawer.getFeatures().contains(e.getName()) && e.getYear() == year) {
+				entries.add(e);
+			}
+		}
+		return entries;
+	}
+
 	private static double getMax(List<Entry> entries) {
-		
-		
+
 		double max = entries.get(0).getValue();
 		for (Entry e : entries) {
 			if (e.getValue() > max) {
@@ -77,8 +77,7 @@ public class EntryDrawer {
 	}
 
 	private static double getMin(List<Entry> entries) {
-		
-		
+
 		double min = entries.get(0).getValue();
 		for (Entry e : entries) {
 			if (e.getValue() < min) {
@@ -89,13 +88,7 @@ public class EntryDrawer {
 	}
 
 	public static void main(String[] args) {
-		// List<Entry> entries = new ArrayList<>();
-		/*
-		 * entries.add(new Entry("Vaivara vald", 100)); entries.add(new Entry(
-		 * "Tartu linn", 200));
-		 */
 		List<Entry> entries = CSVFileReader.read("conf/resources/csv_samples/rain.csv");
-		System.out.println(entries.get(10));
 
 		int width = 1024;
 		MapDrawer drawer = new MapDrawer("conf/resources/omavalitsus/omavalitsus_20160501.shp", "ONIMI");

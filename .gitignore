@@ -2,7 +2,6 @@
 bin/
 /db
 .eclipse
-/lib/
 /logs/
 /modules
 /project/target
@@ -17,3 +16,4 @@ server.pid
 *.cache
 *.log
 .settings
+.sbtserver/previous.log

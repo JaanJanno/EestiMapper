@@ -1,25 +1,13 @@
-New log file opened at Tue May 24 02:57:04 EEST 2016 by 12224@DESKTOP-MRNLGS7
-Taking next connection to: 53192
-New client attempting to connect on port: 53193-53192
-  Address = /192.168.99.1:53192
-This client on port 53193 has uuid 17af8e0a-911b-4048-b639-8b868b17684f configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
-Connected Clients: play-fork-run-17af8e0a-911b-4048-b639-8b868b17684f
-Taking next connection to: 53192
+New log file opened at Tue May 24 11:54:58 EEST 2016 by 5996@jaan-lt
+Taking next connection to: 55899
+New client attempting to connect on port: 55900-55899
+  Address = /192.168.99.1:55899
+This client on port 55900 has uuid 66466538-5f7b-4a0c-97a5-c5ea62b86383 configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
+Connected Clients: play-fork-run-66466538-5f7b-4a0c-97a5-c5ea62b86383
+Taking next connection to: 55899
 Checking to see if clients are empty...
 We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 53192
+Taking next connection to: 55899
 Checking to see if clients are empty...
 We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 53192
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 53192
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 53192
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 53192
-Checking to see if clients are empty...
-We have 1 non-daemon clients, continuing serving connections.
-Taking next connection to: 53192
+Taking next connection to: 55899

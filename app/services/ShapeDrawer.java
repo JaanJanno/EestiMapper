@@ -95,7 +95,7 @@ public class ShapeDrawer {
 	}
 
 	public static void main(String[] args) {
-		Map<String, Shape> map = ShapeReader.read("C:\\Users\\Jaan\\Desktop\\maakond_20160501.shp");
+		Map<String, Shape> map = ShapeReader.read("C:\\Users\\Jaan\\Desktop\\maakond_20160501.shp", "MNIMI");
 		MultiPolygon tartu = map.get("Tartu maakond").polygon;
 		BoundingBox box = map.get("Tartu maakond").bound;
 

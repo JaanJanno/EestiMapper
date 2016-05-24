@@ -18,3 +18,5 @@ fork in run := true
 EclipseKeys.preTasks := Seq(compile in Compile)
 EclipseKeys.projectFlavor := EclipseProjectFlavor.Java
 EclipseKeys.createSrc := EclipseCreateSrc.ValueSet(EclipseCreateSrc.ManagedClasses, EclipseCreateSrc.ManagedResources)
+
+libraryDependencies += "com.typesafe.akka" %% "akka-slf4j" % "2.4.0"

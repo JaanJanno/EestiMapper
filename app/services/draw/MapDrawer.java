@@ -12,6 +12,7 @@ import java.util.Map;
 
 import javax.swing.JFrame;
 
+import org.eclipse.emf.ecore.util.FeatureMap;
 import org.geotools.feature.DefaultFeatureCollection;
 import org.geotools.geometry.jts.ReferencedEnvelope;
 import org.geotools.map.FeatureLayer;
@@ -29,7 +30,7 @@ public class MapDrawer {
 	Map<String, SimpleFeature> featureMap;
 
 	public MapDrawer(String url) {
-		this.featureMap = ShapeReader.readFeatureMap(url);
+		this.featureMap = ShapeReader.readFeatureMap(url, "ONIMI");
 	}
 
 	public BufferedImage generateMap(int width, List<SimpleDrawCall> calls) {
@@ -47,7 +48,9 @@ public class MapDrawer {
 			map.addLayer(layer);
 		}
 
-		return generateImage(map, width);
+		BufferedImage image = generateImage(map, width);
+		map.dispose();
+		return image;
 	}
 
 	private static BufferedImage generateImage(final MapContent map, int width) {
@@ -79,18 +82,22 @@ public class MapDrawer {
 	}
 
 	public static void main(String[] args) {
-		MapDrawer d = new MapDrawer("C:\\Users\\Jaan\\Desktop\\maakond_20160501.shp");
+		MapDrawer d = new MapDrawer("conf/resources/omavalitsus/omavalitsus_20160501.shp");
 
 		try {
 			List<SimpleDrawCall> calls = new ArrayList<>();
-			calls.add(new SimpleDrawCall("Tartu maakond", Color.RED));
+			for(String s: d.featureMap.keySet())
+				calls.add(new SimpleDrawCall(s, Color.RED));
+			/*calls.add(new SimpleDrawCall("Tartu linn", Color.RED));
 			calls.add(new SimpleDrawCall("Järva maakond", Color.BLUE));
 			calls.add(new SimpleDrawCall("Harju maakond", Color.GREEN));
 			calls.add(new SimpleDrawCall("Põlva maakond", Color.YELLOW));
-			calls.add(new SimpleDrawCall("Saare maakond", Color.ORANGE));
+			calls.add(new SimpleDrawCall("Saare maakond", Color.ORANGE));*/
 			BufferedImage img = d.generateMap(1024, calls);
 
 			JFrame f = new JFrame() {
+				private static final long serialVersionUID = 1L;
+
 				@Override
 				public void paint(Graphics g) {
 					super.paintComponents(g);
@@ -100,9 +107,6 @@ public class MapDrawer {
 			f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			f.setSize(1074, 1074);
 			f.setLocation(100, 100);
-			f.setTitle("SimplexTest");
-			// TestAnimation t = new TestAnimation("");
-			// f.add(t);
 			f.setVisible(true);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

@@ -33,14 +33,14 @@ public class HomeController extends Controller {
 
 	public Result getImage(Long id) {
 
-		MapDrawer d = new MapDrawer("C:\\Users\\Jaan\\Desktop\\maakond_20160501.shp");
+		MapDrawer d = new MapDrawer("conf/resources/maakond/omavalitsus_20160501.shp");
 
 		List<SimpleDrawCall> calls = new ArrayList<>();
-		calls.add(new SimpleDrawCall("Tartu maakond", Color.RED));
-		calls.add(new SimpleDrawCall("Järva maakond", Color.BLUE));
+		calls.add(new SimpleDrawCall("Tartu vald", Color.RED));
+		/*calls.add(new SimpleDrawCall("Järva maakond", Color.BLUE));
 		calls.add(new SimpleDrawCall("Harju maakond", Color.GREEN));
 		calls.add(new SimpleDrawCall("Põlva maakond", Color.YELLOW));
-		calls.add(new SimpleDrawCall("Saare maakond", Color.ORANGE));
+		calls.add(new SimpleDrawCall("Saare maakond", Color.ORANGE));*/
 		BufferedImage img = d.generateMap(1024, calls);
 
 		ByteArrayOutputStream baos = new ByteArrayOutputStream();

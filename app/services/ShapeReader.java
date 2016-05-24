@@ -21,7 +21,7 @@ import com.vividsolutions.jts.geom.MultiPolygon;
 
 public class ShapeReader {
 
-	public static Map<String, Shape> read(String url) {
+	public static Map<String, Shape> read(String url, String identifier) {
 
 		Map<String, Shape> locations = new HashMap<>();
 
@@ -44,7 +44,7 @@ public class ShapeReader {
 				while (iterator.hasNext()) {
 					Feature feature = iterator.next();
 
-					String name = feature.getProperty("MNIMI").getValue().toString();
+					String name = feature.getProperty(identifier).getValue().toString();
 					BoundingBox box = feature.getDefaultGeometryProperty().getBounds();
 					MultiPolygon poly = (MultiPolygon) feature.getDefaultGeometryProperty().getValue();
 
@@ -61,7 +61,7 @@ public class ShapeReader {
 
 	}
 
-	public static Map<String, SimpleFeature> readFeatureMap(String url) {
+	public static Map<String, SimpleFeature> readFeatureMap(String url, String identifier) {
 		
 		Map<String, SimpleFeature> locations = new HashMap<>();
 		File file = new File(url);
@@ -81,7 +81,7 @@ public class ShapeReader {
 			try {
 				while (iterator.hasNext()) {
 					SimpleFeature feature = (SimpleFeature) iterator.next();
-					String name = feature.getProperty("MNIMI").getValue().toString();
+					String name = feature.getProperty(identifier).getValue().toString();
 
 					locations.put(name, feature);
 				}
@@ -97,7 +97,7 @@ public class ShapeReader {
 	}
 
 	public static void main(String[] args) {
-		Map<String, SimpleFeature> map = readFeatureMap("C:\\Users\\Jaan\\Desktop\\maakond_20160501.shp");
+		Map<String, SimpleFeature> map = readFeatureMap("C:\\Users\\Jaan\\Desktop\\maakond_20160501.shp","MNIMI");
 		SimpleFeature tartu = map.get("Tartu maakond");
 		System.out.println(tartu);
 	}

@@ -1,13 +1,13 @@
-New log file opened at Wed May 25 20:45:40 EEST 2016 by 12464@DESKTOP-MRNLGS7
-Taking next connection to: 56148
-New client attempting to connect on port: 56149-56148
-  Address = /192.168.99.1:56148
-This client on port 56149 has uuid caafcf27-e12a-4cc9-893e-abfe5fb6ed73 configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
-Connected Clients: play-fork-run-caafcf27-e12a-4cc9-893e-abfe5fb6ed73
-Taking next connection to: 56148
-New client attempting to connect on port: 56150-56148
-  Address = /192.168.99.1:56148
-Handshake exception on socket: 56150
+New log file opened at Wed May 25 21:21:50 EEST 2016 by 6024@DESKTOP-MRNLGS7
+Taking next connection to: 56464
+New client attempting to connect on port: 56465-56464
+  Address = /192.168.99.1:56464
+This client on port 56465 has uuid 4f5ab89e-89a6-4da3-b52e-6436bac83e52 configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
+Connected Clients: play-fork-run-4f5ab89e-89a6-4da3-b52e-6436bac83e52
+Taking next connection to: 56464
+New client attempting to connect on port: 56501-56464
+  Address = /192.168.99.1:56464
+Handshake exception on socket: 56501
 sbt.impl.ipc.HandshakeException: Unable to perform handshake
 	at sbt.impl.ipc.Peer.handshake(IPC.scala:46)
 	at sbt.impl.ipc.MultiClientServer.<init>(IPC.scala:150)
@@ -23,9 +23,9 @@ Caused by: java.net.SocketException: Software caused connection abort: recv fail
 	at sbt.impl.ipc.Peer.receive(IPC.scala:95)
 	at sbt.impl.ipc.Peer.handshake(IPC.scala:49)
 	... 2 more
-Taking next connection to: 56148
-New client attempting to connect on port: 56151-56148
-  Address = /192.168.99.1:56148
-This client on port 56151 has uuid fb54c3d7-f037-4eed-8194-5899d240370e configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
-Connected Clients: play-fork-run-fb54c3d7-f037-4eed-8194-5899d240370e
-Taking next connection to: 56148
+Taking next connection to: 56464
+New client attempting to connect on port: 56502-56464
+  Address = /192.168.99.1:56464
+This client on port 56502 has uuid 855238f9-644c-4ce8-b0f3-ebf3d3f7f8ba configName play-fork-run humanReadableName Play Fork Run protocolVersion 1 featureTags Vector()
+Connected Clients: play-fork-run-855238f9-644c-4ce8-b0f3-ebf3d3f7f8ba
+Taking next connection to: 56464

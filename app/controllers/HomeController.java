@@ -41,6 +41,23 @@ public class HomeController extends Controller {
 		return ok(images.render(ImageEntry.find.all()));
 	}
 
+	public Result getSample() {
+		String sample = new String();
+		for (int year = 2010; year <= 2016; year++) {
+			for (String s : maakondDrawer.getFeatures()) {
+				sample += s + ',';
+				sample += Double.toString(Math.random()) + ',';
+				sample += Integer.toString(year) + '\n';
+			}
+			for (String s : omavalitsusDrawer.getFeatures()) {
+				sample += s + ',';
+				sample += Double.toString(Math.random()) + ',';
+				sample += Integer.toString(year) + '\n';
+			}
+		}
+		return ok(sample).as("text/csv");
+	}
+
 	public Result postImage() {
 		@SuppressWarnings("deprecation")
 		Form<DrawCallForm> callReq = form(DrawCallForm.class).bindFromRequest();
@@ -62,7 +79,7 @@ public class HomeController extends Controller {
 				pick = maakondDrawer;
 			}
 
-			if(callReq.data().get("autozoom") == null)
+			if (callReq.data().get("autozoom") == null)
 				autofill = false;
 
 			try {

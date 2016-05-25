@@ -2,9 +2,11 @@ package services.csv;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -42,7 +44,7 @@ public class CSVFileReader {
 	public static List<Entry> read(File file) {
 		List<String> lines = new ArrayList<>();
 
-		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+		try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF8"))) {
 			for (String line; (line = br.readLine()) != null;) {
 				lines.add(line);
 			}

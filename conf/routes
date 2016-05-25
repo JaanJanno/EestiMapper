@@ -10,4 +10,5 @@ GET     /assets/*file               controllers.Assets.versioned(path="/public",
 
 GET     /image/:id       			controllers.HomeController.getImage(id:Long)
 GET     /image/       				controllers.HomeController.getImages()
+GET     /sample.csv       			controllers.HomeController.getSample()
 POST    /image/       				controllers.HomeController.postImage()

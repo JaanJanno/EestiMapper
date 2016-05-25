@@ -1,6 +1,35 @@
-@(message: String)
+@(myForm: Form[DrawCallForm])
 
-@main("Welcome to Play") {
-	Hello joesssss
-	@message
+@import helper._
+
+@main("Eesti Mapper") {
+	<a href="image/">List all generated images.</a>
+
+	<h1>Submit new CSV</h1>
+
+	@helper.form(action = routes.HomeController.postImage(), 'enctype -> "multipart/form-data") {
+
+	    @helper.inputText(myForm("width"), '_label -> "Image width")
+
+	    @helper.inputText(myForm("year"), '_label -> "Year filter")
+
+	    <input type="checkbox" name="autozoom" value="disable">Disable automatic zoom over empty entries.<br>
+
+	    @select(
+		   myForm("level"),
+		   options(Seq("Maakond","Omavalitsus")),
+		   '_label -> "Level"
+		)
+
+		<input type="color" name="mincol" value="#0000ff" label="Minimum value color">
+
+		<input type="color" name="maxcol" value="#ff0000" label="Maximum value color">
+
+		</br></br>
+
+		<input type="file" name="csv" label="CSV file">
+
+		<input id="button" type="submit" value="Submit">
+
+	}
 }

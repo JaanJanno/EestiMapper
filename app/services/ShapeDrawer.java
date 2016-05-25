@@ -1,23 +1,14 @@
 package services;
 
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.awt.image.RenderedImage;
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
-import javax.imageio.ImageIO;
-import javax.swing.JFrame;
-
-import org.geotools.data.FeatureSource;
 import org.geotools.data.shapefile.ShapefileDataStore;
 import org.geotools.feature.DefaultFeatureCollection;
 import org.geotools.feature.FeatureIterator;
@@ -28,14 +19,9 @@ import org.geotools.renderer.GTRenderer;
 import org.geotools.renderer.lite.StreamingRenderer;
 import org.geotools.styling.PolygonSymbolizer;
 import org.geotools.styling.StyleBuilder;
-import org.geotools.swing.JMapFrame;
-import org.geotools.swing.JMapPane;
 import org.opengis.feature.simple.SimpleFeature;
-import org.opengis.geometry.BoundingBox;
 
 import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.Geometry;
-import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.MultiPolygon;
 import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.PrecisionModel;
@@ -51,6 +37,7 @@ public class ShapeDrawer {
 
 		for (int x = 0; x < width; x += 100) {
 			for (int y = 0; y < height; y += 100) {
+				@SuppressWarnings("deprecation")
 				Point p = new Point(
 						new Coordinate(revScaleCoords(width, xMin, xMax, x), revScaleCoords(height, yMin, yMax, y)),
 						new PrecisionModel(PrecisionModel.FLOATING), 1);
@@ -92,37 +79,6 @@ public class ShapeDrawer {
 
 	public static double revScaleCoords(int width, double min, double max, double coord) {
 		return min + (max - min) * (coord / width);
-	}
-
-	public static void main(String[] args) {
-		Map<String, Shape> map = ShapeReader.read("C:\\Users\\Jaan\\Desktop\\maakond_20160501.shp", "MNIMI");
-		MultiPolygon tartu = map.get("Tartu maakond").polygon;
-		BoundingBox box = map.get("Tartu maakond").bound;
-
-		// BufferedImage img = draw(tartu, 1024, 1024, box.getMinX(),
-		// box.getMaxX(), box.getMinY(), box.getMaxY());
-		try {
-			RenderedImage img = usingFeatureCaching(1024, 1024);
-
-			JFrame f = new JFrame() {
-				@Override
-				public void paint(Graphics g) {
-					super.paintComponents(g);
-					g.drawImage((Image) img, 0, 50, null);
-				}
-			};
-			f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			f.setSize(1024, 1024);
-			f.setLocation(100, 100);
-			f.setTitle("SimplexTest");
-			// TestAnimation t = new TestAnimation("");
-			// f.add(t);
-			f.setVisible(true);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
 	}
 
 	public static RenderedImage usingFeatureCaching(int width, int height) throws Exception {

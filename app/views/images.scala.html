@@ -1,0 +1,19 @@
+@(urls: List[ImageEntry])
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Image list</title>
+    </head>
+    <body>
+    <a href="/">Back to main page.</a>
+        <ul>
+			@for(url <- urls) {
+			  <li>
+			  	<a href="@(url.id)"> Image @(url.id)
+			  	<img height="256px" src="@(url.id)"></a>
+			  </li>
+			}
+		</ul>
+    </body>
+</html>
